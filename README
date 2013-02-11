@@ -1,9 +1,9 @@
-Welcome to your Appcelerator Titanium Mobile Project
+Aplicación móvil para ordenar pizzas via una aplicación.
 
-This is a blank project.  Start by editing your application's app.js to 
-make your first mobile project using Titanium.
-
-
+- Configura el L&F
+- Permite la selección de ingredientes y tipo de pan
+- Ejemplifica el uso de formas y CRUD de datos
+- Finaliza la orden y almacena la información en un BD
 
 ----------------------------------
 Stuff our legal folk make us say:
