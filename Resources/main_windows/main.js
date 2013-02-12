@@ -11,7 +11,11 @@ Ti.include('../includes/clock.js');
 
 // Closes de crusts/detail window and opens the toppings window
 function openToppings(e) {
-	crusts.close();
+	if (e.toppings){
+		details.close();
+	} else {
+		crusts.close();
+    }
 	toppings.url = 'toppings.js';
 	toppings.crust = e.crust;
 	toppings.path  = e.path;
@@ -29,6 +33,20 @@ function openCrust(e) {
 	crusts.open();
 }
 
+//-- This function will close the toppings window and open the details window
+function openDetails(e){
+	toppings.close();
+	details.crust    = e.crust;
+	details.path     = e.path;
+	details.toppings = e.toppings;
+	details.url      = 'details.js';
+	details.open();
+}
+
 Ti.App.addEventListener('toppings', openToppings);
 Ti.App.addEventListener('cancelToppings', openCrust);
+Ti.App.addEventListener('details', openDetails);
+Ti.App.addEventListener('cancelDetails', openToppings);
+
+
 openCrust({});

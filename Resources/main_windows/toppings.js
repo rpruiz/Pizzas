@@ -137,6 +137,16 @@ cancel.animate({
     duration:500  
 });
 
+details.addEventListener('click', function(e){
+	var pizzaInfo = [];
+	for (var i = 0; i < toppings.length; i++){
+		if(toppings[i].container != null){
+			pizzaInfo.push(toppings[i].title);
+		}
+	}
+	Ti.App.fireEvent('details', {crust:win.crust, path:win, toppings:pizzaInfo});
+});
+
 function toppingListClick(e){
 	if (e.source.selected){
 		e.source.selected = true;
@@ -204,6 +214,31 @@ function createToppingsList(){
 			selected:false,
 			toppingID:1
 		});
+		
+		//-- If the user hits cancel in the details window, we go back and reposition
+		if (win.returnToppings){
+			for( j = 0; j < win.returnToppings.length; j++){
+				if (win.returnToppings[j] == toppings[i].title){
+                    var aTopping = Ti.UI.createView({
+                        backgroundImage:toppings[i].path
+                    });
+                    if (Ti.Platform.osname == 'android'){
+                        aTopping.image = toppings[i].path;
+                    } else {
+                        aTopping.opacity = 0;
+                        aTopping.animate({
+                            opacity:1,
+                            duration:500
+                        });
+                    }
+                    toppingsHolder.add(aTopping);
+                    toppings[i].container = aTopping;
+                    checkbox.backgroundImage = '../images/checkbox_yes.png';
+                    checkbox.selected = true;
+                    numToppings += 1;
+                }
+			}
+		}
 		
 		var toggler = Ti.UI.createView({
 			width:Ti.Platform.displayCaps.platformWidth,
